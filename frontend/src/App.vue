@@ -1,8 +1,8 @@
 <template>
   <div id="app">
-    <b-navbar toggleable="lg" type="light" variant="warning">
+    <b-navbar toggleable="lg" type="dark" variant="danger">
       <b-container>
-        <b-navbar-brand :to="{name: 'home'}">LaNota.com</b-navbar-brand>
+        <b-navbar-brand :to="{name: 'home'}"><strong>LaNota.com</strong> </b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
