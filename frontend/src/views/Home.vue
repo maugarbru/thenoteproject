@@ -50,36 +50,70 @@
     </div>
 
     <div class="mt-2">
-      <b-navbar toggleable="lg" type="light" variant="info">
+      <b-navbar toggleable="lg" type="dark" variant="dark">
         <b-navbar-brand>
           <strong>Búsqueda</strong>
         </b-navbar-brand>
 
-        <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+        <b-navbar-nav class="ml-auto">
+          <b-nav-item-dropdown text="Género">
+            <b-dropdown-item href="#">Vallenato</b-dropdown-item>
+            <b-dropdown-item href="#">Salsa</b-dropdown-item>
+            <b-dropdown-item href="#">Merengue</b-dropdown-item>
+            <b-dropdown-item href="#">Mixto</b-dropdown-item>
+          </b-nav-item-dropdown>
 
-        <b-collapse id="nav-collapse" is-nav>
-          <b-navbar-nav class="ml-auto">
-            <b-nav-item-dropdown text="Género">
-              <b-dropdown-item href="#">EN</b-dropdown-item>
-              <b-dropdown-item href="#">ES</b-dropdown-item>
-              <b-dropdown-item href="#">RU</b-dropdown-item>
-              <b-dropdown-item href="#">FA</b-dropdown-item>
-            </b-nav-item-dropdown>
+          <b-nav-item-dropdown text="Ciudad">
+            <b-dropdown-item href="#">Medellin</b-dropdown-item>
+            <b-dropdown-item href="#">Bogota</b-dropdown-item>
+            <b-dropdown-item href="#">Cali</b-dropdown-item>
+            <b-dropdown-item href="#">Barranquilla</b-dropdown-item>
+          </b-nav-item-dropdown>
 
-            <b-nav-item-dropdown text="Calificación">
-              <b-dropdown-item href="#">EN</b-dropdown-item>
-              <b-dropdown-item href="#">ES</b-dropdown-item>
-              <b-dropdown-item href="#">RU</b-dropdown-item>
-              <b-dropdown-item href="#">FA</b-dropdown-item>
-            </b-nav-item-dropdown>
-
-            <b-nav-form>
-              <b-form-input size="sm" class="mr-sm-2" placeholder="Búsqueda"></b-form-input>
-              <b-button size="sm" class="my-2 my-sm-0" type="submit">Buscar</b-button>
-            </b-nav-form>
-          </b-navbar-nav>
-        </b-collapse>
+          <b-nav-form>
+            <b-form-input size="sm" class="mr-sm-2" placeholder="Búsqueda"></b-form-input>
+            <b-button size="sm" class="my-2 my-sm-0" type="submit">Buscar</b-button>
+          </b-nav-form>
+        </b-navbar-nav>
       </b-navbar>
+
+      <b-container class="bg-light">
+        <b-row>
+          <div class="col-sm mt-2">
+            <b-card
+              img-src="https://picsum.photos/600/300/?image=25"
+              img-alt="Image"
+              img-top
+              style="max-width: 20rem;"
+              class="mb-2"
+            >
+              <b-card-text>Card Title</b-card-text>
+            </b-card>
+          </div>
+          <div class="col-sm mt-2">
+            <b-card
+              img-src="https://picsum.photos/600/300/?image=25"
+              img-alt="Image"
+              img-top
+              style="max-width: 20rem;"
+              class="mb-2"
+            >
+              <b-card-text>Card Title</b-card-text>
+            </b-card>
+          </div>
+          <div class="col-sm mt-2">
+            <b-card
+              img-src="https://picsum.photos/600/300/?image=25"
+              img-alt="Image"
+              img-top
+              style="max-width: 20rem;"
+              class="mb-2"
+            >
+              <b-card-text>Card Title</b-card-text>
+            </b-card>
+          </div>
+        </b-row>
+      </b-container>
     </div>
   </div>
 </template>

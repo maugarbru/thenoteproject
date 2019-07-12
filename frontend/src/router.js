@@ -14,14 +14,14 @@ export default new Router({
       component: Home
     },
     {
-      path: '/login',
-      name: 'login',
-      component: () => import(/* webpackChunkName: "login" */ './views/Login.vue')
+      path: '/destacados',
+      name: 'destacados',
+      component: () => import(/* webpackChunkName: "destacados" */ './views/Destacados.vue')
     },
     {
-      path: '/about',
-      name: 'about',
-      component: () => import(/* webpackChunkName: "about" */ './views/About.vue')
+      path: '/inscripcion',
+      name: 'inscripcion',
+      component: () => import(/* webpackChunkName: "inscripcion" */ './views/Inscripcion.vue')
     }
   ]
 })
