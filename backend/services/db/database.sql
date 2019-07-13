@@ -26,5 +26,6 @@ CREATE TABLE public.grupos
     ciudad character varying(100) NOT NULL,
     precio int NOT NULL,
     foto character varying(200) NOT NULL,
-    video character varying(200) NOT NULL
+    video character varying(200) NOT NULL,
+    pagina character varying(200) NOT NULL
 )

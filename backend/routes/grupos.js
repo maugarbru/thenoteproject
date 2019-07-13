@@ -22,6 +22,15 @@ app.get('/grupos/', function (req, res) {
     })
 })
 
+// Obtener todos las grupos
+app.get('/grupos/admin', function (req, res) {
+    controller.getAllAdmin().then(response => {
+        res.status(200).send(response)
+    }).catch(error => {
+        console.log(error);
+    })
+})
+
 // Obtener un grupo por id
 app.get('/grupos/:id', function (req, res) {
     controller.getOne(req.params.id).then(response => {
@@ -75,6 +84,28 @@ app.post('/sendemail', function (req, res) {
         } else {
             res.status(200).send({ message: 'Email sent succesful' })
         }
+    })
+})
+
+// Añadir grupo
+app.post('/grupos', (req, res) => {
+    let body = req.body
+    //Capturo la respuesa de la insercion a la base de datos
+    controller.insert(body.id, body.nombre, body.descripcion, body.email, body.genero1, body.genero2, body.ciudad, body.precio, body.foto, body.video, body.pagina).then(response => {
+        res.status(201).send({ message: "Grupo añadido" })
+    }).catch(error => {
+        console.log(error);
+        res.status(400).send({ message: "Error al insertar grupo" })
+    })
+})
+
+// Elimina un grupo
+app.delete('/grupos/:id', (req, res) => {
+    let id = req.params.id
+    controller.delete(id).then(response => {
+        res.status(200).send({ message: "Grupo eliminado" })
+    }).catch(error => {
+        res.status(400).send({ message: "Error al eliminar grupo" })
     })
 })
 

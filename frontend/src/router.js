@@ -22,6 +22,11 @@ export default new Router({
       path: '/inscripcion',
       name: 'inscripcion',
       component: () => import(/* webpackChunkName: "inscripcion" */ './views/Inscripcion.vue')
+    },
+    {
+      path: '/admin',
+      name: 'admin',
+      component: () => import(/* webpackChunkName: "admin" */ './views/Admin.vue')
     }
   ]
 })

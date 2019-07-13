@@ -20,6 +20,12 @@ class Grupo {
         return response
     }
 
+    async getAllAdmin() {
+        let sql = `SELECT id, nombre, email, ciudad FROM public.grupos`;
+        let response = await pg.executeRows(sql)
+        return response
+    }
+
     async getOne(id) {
         let sql = `SELECT * FROM public.grupos WHERE id=${id}`;
         let response = await pg.executeRows(sql)
@@ -44,4 +50,16 @@ class Grupo {
         return response
     }
 
+    async insert(id, nombre, descripcion, email, genero1, genero2, ciudad, precio, foto, video, pagina) {
+        let sql = `INSERT INTO public.grupos(id, nombre, descripcion, email, genero1, genero2, ciudad, precio, foto, video, pagina)
+            VALUES ('${id}', '${nombre}', '${descripcion}', '${email}', '${genero1}', '${genero2}', '${ciudad}', ${precio}, '${foto}', '${video}', '${pagina}');`;
+        let response = await pg.execute(sql)
+        return response
+    }
+
+    async delete(id) {
+        let sql = `DELETE FROM public.grupos WHERE id='${id}'`;
+        let response = await pg.execute(sql)
+        return response
+    }
 }

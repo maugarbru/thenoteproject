@@ -16,6 +16,12 @@ class Grupo {
         return grupos
     }
 
+    async getAllAdmin() {
+        let grupos = await service.getAllAdmin()
+        return grupos
+    }
+
+
     async getOne(id) {
         let grupo = await service.getOne(id)
         return grupo
@@ -34,5 +40,13 @@ class Grupo {
     async getPorPrecio(precio) {
         let grupos = await service.getPorPrecio(precio)
         return grupos
+    }
+
+    async insert(id, nombre, descripcion, email, genero1, genero2, ciudad, precio, foto, video, pagina) {
+        return await service.insert(id, nombre, descripcion, email, genero1, genero2, ciudad, precio, foto, video, pagina)
+    }
+
+    async delete(id) {
+        return await service.delete(id)
     }
 }
