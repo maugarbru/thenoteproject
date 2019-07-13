@@ -4,6 +4,7 @@
       <b-carousel
         id="carousel-1"
         :interval="4000"
+        fade
         indicators
         controls
         background="#ababab"
@@ -11,41 +12,23 @@
         img-height="480"
         style="text-shadow: 1px 1px 2px #333;"
       >
-        <!-- Text slides with image -->
         <b-carousel-slide
-          caption="First slide"
-          text="Nulla vitae elit libero, a pharetra augue mollis interdum."
-          img-src="https://picsum.photos/1024/480/?image=52"
+          img-width="1024"
+          img-height="480"
+          img-src="https://cdn.pixabay.com/photo/2015/05/15/14/50/concert-768722_960_720.jpg"
         ></b-carousel-slide>
 
-        <!-- Slides with custom text -->
-        <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=54">
-          <h1>Hello world!</h1>
-        </b-carousel-slide>
+        <b-carousel-slide
+          img-src="https://cdn.pixabay.com/photo/2015/03/26/10/22/band-691224_960_720.jpg"
+        ></b-carousel-slide>
 
-        <!-- Slides with image only -->
-        <b-carousel-slide img-src="https://picsum.photos/1024/480/?image=58"></b-carousel-slide>
+        <b-carousel-slide
+          img-src="https://cdn.pixabay.com/photo/2015/07/30/17/24/audience-868074_960_720.jpg"
+        ></b-carousel-slide>
 
-        <!-- Slides with img slot -->
-        <!-- Note the classes .d-block and .img-fluid to prevent browser default image alignment -->
-        <b-carousel-slide>
-          <img
-            slot="img"
-            class="d-block img-fluid w-100"
-            width="1024"
-            height="480"
-            src="https://picsum.photos/1024/480/?image=55"
-            alt="image slot"
-          />
-        </b-carousel-slide>
-
-        <!-- Slide with blank fluid image to maintain slide aspect ratio -->
-        <b-carousel-slide caption="Blank Image" img-blank img-alt="Blank image">
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse eros felis, tincidunt
-            a tincidunt eget, convallis vel est. Ut pellentesque ut lacus vel interdum.
-          </p>
-        </b-carousel-slide>
+        <b-carousel-slide
+          img-src="https://cdn.pixabay.com/photo/2018/06/30/09/29/music-3507317_960_720.jpg"
+        ></b-carousel-slide>
       </b-carousel>
     </div>
 
@@ -81,13 +64,13 @@
         <b-row>
           <div class="col-sm mt-2">
             <b-card
-              img-src="https://picsum.photos/600/300/?image=25"
               img-alt="Image"
               img-top
               style="max-width: 20rem;"
               class="mb-2"
             >
-              <b-card-text>Card Title</b-card-text>
+              <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=54" alt="Image 1"></b-img>
+              <b-card-text>Grupo 1</b-card-text>
             </b-card>
           </div>
           <div class="col-sm mt-2">
