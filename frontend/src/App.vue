@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <b-navbar toggleable="lg" type="light" variant="info">
+    <b-navbar toggleable="lg" type="dark" variant="dark">
       <b-container>
         <b-navbar-brand :to="{name: 'home'}">
           <img src="./assets/logo.png" width height="30" class="d-inline-block align-top" alt />

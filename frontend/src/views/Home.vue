@@ -38,63 +38,38 @@
           <strong>Búsqueda</strong>
         </b-navbar-brand>
 
-        <b-navbar-nav class="ml-auto">
-          <b-nav-item-dropdown text="Género">
-            <b-dropdown-item href="#">Vallenato</b-dropdown-item>
-            <b-dropdown-item href="#">Salsa</b-dropdown-item>
-            <b-dropdown-item href="#">Merengue</b-dropdown-item>
-            <b-dropdown-item href="#">Mixto</b-dropdown-item>
-          </b-nav-item-dropdown>
-
-          <b-nav-item-dropdown text="Ciudad">
-            <b-dropdown-item href="#">Medellin</b-dropdown-item>
-            <b-dropdown-item href="#">Bogota</b-dropdown-item>
-            <b-dropdown-item href="#">Cali</b-dropdown-item>
-            <b-dropdown-item href="#">Barranquilla</b-dropdown-item>
-          </b-nav-item-dropdown>
-
+        <b-navbar-nav>
           <b-nav-form>
-            <b-form-input size="sm" class="mr-sm-2" placeholder="Búsqueda"></b-form-input>
-            <b-button size="sm" class="my-2 my-sm-0" type="submit">Buscar</b-button>
+            <b-row>
+              <b-col md="3" class="text-light">
+                Ciudad:
+                <b-form-select v-model="selectedCiudad" :options="ciudades"></b-form-select>
+              </b-col>
+              <b-col md="3" class="text-light">
+                Género:
+                <b-form-select v-model="selectedGenero" :options="generos"></b-form-select>
+              </b-col>
+              <b-col md="3" class="text-light">
+                Precio:
+                <b-form-input type="number" v-model="selectedPrecio"></b-form-input>
+              </b-col>
+            </b-row>
           </b-nav-form>
         </b-navbar-nav>
       </b-navbar>
 
       <b-container class="bg-light">
         <b-row>
-          <div class="col-sm mt-2">
+          <b-col v-for="grupo in allGrupos" v-bind:key="grupo.id" class="col-sm mt-2">
             <b-card
-              img-alt="Image"
               img-top
               style="max-width: 20rem;"
-              class="mb-2"
+              class="mb-2 text-center"
+              :title="grupo.nombre"
             >
-              <b-img thumbnail fluid src="https://picsum.photos/250/250/?image=54" alt="Image 1"></b-img>
-              <b-card-text>Grupo 1</b-card-text>
+              <b-img thumbnail fluid :src="grupo.foto" :alt="grupo.nombre"></b-img>
             </b-card>
-          </div>
-          <div class="col-sm mt-2">
-            <b-card
-              img-src="https://picsum.photos/600/300/?image=25"
-              img-alt="Image"
-              img-top
-              style="max-width: 20rem;"
-              class="mb-2"
-            >
-              <b-card-text>Card Title</b-card-text>
-            </b-card>
-          </div>
-          <div class="col-sm mt-2">
-            <b-card
-              img-src="https://picsum.photos/600/300/?image=25"
-              img-alt="Image"
-              img-top
-              style="max-width: 20rem;"
-              class="mb-2"
-            >
-              <b-card-text>Card Title</b-card-text>
-            </b-card>
-          </div>
+          </b-col>
         </b-row>
       </b-container>
     </div>
@@ -102,11 +77,54 @@
 </template>
 
 <script>
+import axios from "axios";
+
 export default {
   name: "home",
   data() {
-    return {};
+    return {
+      allGrupos: [],
+      selectedCiudad: "",
+      selectedGenero: "",
+      selectedPrecio: "",
+      generos: [
+        { value: "Vallenato", text: "Vallenato" },
+        { value: "Merengue", text: "Merengue" },
+        { value: "Salsa", text: "Salsa" },
+        { value: "Bachata", text: "Bachata" },
+        { value: "Porro", text: "Porro" },
+        { value: "Otro", text: "Otro" },
+        { value: "Ninguno", text: "Ninguno" }
+      ],
+      ciudades: [
+        { value: "Bogota", text: "Bogota" },
+        { value: "Medellin", text: "Medellin" },
+        { value: "Barranquilla", text: "Barranquilla" },
+        { value: "Cartagena", text: "Cartagena" },
+        { value: "Cali", text: "Cali" },
+        { value: "Monteria", text: "Monteria" }
+      ]
+    };
   },
-  methods: {}
+  mounted() {
+    this.getAll();
+  },
+  methods: {
+    getAll() {
+      var url = "http://localhost:3000/grupos/";
+      axios
+        .get(url)
+        .then(response => {
+          var data = response.data;
+          this.allGrupos = [];
+          data.forEach(element => {
+            this.allGrupos.push(element);
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  }
 };
 </script>

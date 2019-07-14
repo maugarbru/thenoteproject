@@ -15,7 +15,7 @@ class Grupo {
     }
 
     async getAll() {
-        let sql = `SELECT * FROM public.grupos`;
+        let sql = `SELECT id, nombre, foto FROM public.grupos`;
         let response = await pg.executeRows(sql)
         return response
     }
