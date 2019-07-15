@@ -27,7 +27,7 @@ class Grupo {
     }
 
     async getOne(id) {
-        let sql = `SELECT * FROM public.grupos WHERE id=${id}`;
+        let sql = `SELECT * FROM public.grupos WHERE id='${id}'`;
         let response = await pg.executeRows(sql)
         return response
     }

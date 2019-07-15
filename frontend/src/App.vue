@@ -6,7 +6,7 @@
           <img src="./assets/logo.png" width height="30" class="d-inline-block align-top" alt />
         </b-navbar-brand>
         <b-navbar-brand :to="{name: 'home'}">
-          <strong>LaNota.com</strong>
+          <strong>MiParranda.com</strong>
         </b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>

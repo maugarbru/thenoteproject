@@ -50,7 +50,13 @@
             </b-col>
             <b-col sm="auto">
               Precio:
-              <b-form-input min="5000" step="5000" type="number" placeholder="$" v-model="selectedPrecio"></b-form-input>
+              <b-form-input
+                min="5000"
+                step="5000"
+                type="number"
+                placeholder="$"
+                v-model="selectedPrecio"
+              ></b-form-input>
             </b-col>
             <b-col sm="auto">
               <b-button @click="comprobarBusqueda" variant="info">Buscar</b-button>
@@ -59,20 +65,94 @@
         </b-navbar-nav>
       </b-navbar>
 
-      <b-container class="bg-light">
+      <b-container class="bg-secondary">
         <b-row>
           <b-col v-for="grupo in allGrupos" v-bind:key="grupo.id" class="col-sm mt-2">
-            <b-card
-              img-top
-              style="max-width: 20rem;"
-              class="mb-2 text-center"
-              :title="grupo.nombre"
-            >
+            <b-card img-top style="max-width: 20rem;" class="mb-2 text-center bg-dark">
+              <b-button
+                @click="getGrupo(grupo.id)"
+                variant="info"
+                v-b-modal.modal-center
+              >{{ grupo.nombre }}</b-button>
               <b-img thumbnail fluid :src="grupo.foto" :alt="grupo.nombre"></b-img>
             </b-card>
           </b-col>
         </b-row>
       </b-container>
+
+      <div>
+        <b-modal
+          id="modal-center"
+          text-center
+          centered
+          scrollable
+          size="lg"
+          title="MiParranda.com"
+          header-bg-variant="info"
+          header-text-variant="dark"
+          body-bg-variant="light"
+          body-text-variant="dark"
+          footer-bg-variant="dark"
+          footer-text-variant="info"
+        >
+          <b-row>
+            <b-col class="text-center">
+              <h1>
+                <strong>{{ nombreGrupo }}</strong>
+              </h1>
+              <h4>
+                <i>"{{ descripcionGrupo }}"</i>
+              </h4>
+            </b-col>
+          </b-row>
+          <hr />
+          <b-img thumbnail fluid :src="fotoGrupo" :alt="nombreGrupo" center></b-img>
+          <hr />
+          <b-row>
+            <b-col class="text-center">
+              <h4>Información</h4>
+            </b-col>
+          </b-row>
+          <b-row class="mt-2 text-center">
+            <b-col>
+              <h5>
+                Precio:
+                <b-badge variant="success">${{ precioGrupo }}</b-badge>
+              </h5>
+            </b-col>
+            <b-col>
+              <h5>
+                Ciudad:
+                <b-badge variant="dark">{{ ciudadGrupo }}</b-badge>
+              </h5>
+            </b-col>
+          </b-row>
+          <b-row class="mt-2 text-center">
+            <b-col>
+              <h5>
+                Géneros:
+                <b-badge variant="secondary">{{ genero1Grupo }}</b-badge>|
+                <b-badge variant="secondary">{{ genero2Grupo }}</b-badge>
+              </h5>
+            </b-col>
+            <b-col>
+              <h5>
+                Redes Sociales:
+                <b-badge target="_blank" :href="paginaGrupo" variant="primary">Link</b-badge>
+              </h5>
+            </b-col>
+          </b-row>
+          <hr />
+          <b-row class="mt-2">
+            <b-embed type="iframe" aspect="16by9" :src="videoGrupo" allowfullscreen></b-embed>
+          </b-row>
+
+          <div slot="modal-footer" class="w-100">
+            <p class="float-left">Para contactar con éste grupo aquí -></p>
+            <b-button variant="info" size="sm" class="float-right">Contactar</b-button>
+          </div>
+        </b-modal>
+      </div>
     </div>
   </div>
 </template>
@@ -85,9 +165,22 @@ export default {
   data() {
     return {
       allGrupos: [],
+      selectedGrupo: {},
+      selectedID: "",
       selectedCiudad: "",
       selectedGenero: "",
       selectedPrecio: "",
+
+      nombreGrupo: "",
+      descripcionGrupo: "",
+      genero1Grupo: "",
+      genero2Grupo: "",
+      ciudadGrupo: "",
+      precioGrupo: "",
+      fotoGrupo: "",
+      videoGrupo: "",
+      paginaGrupo: "",
+
       generos: [
         { value: "Vallenato", text: "Vallenato" },
         { value: "Merengue", text: "Merengue" },
@@ -111,6 +204,27 @@ export default {
     this.getAll();
   },
   methods: {
+    getGrupo(id) {
+      var url = `http://localhost:3000/grupos/${id}`;
+      axios
+        .get(url)
+        .then(response => {
+          var data = response.data;
+          this.selectedGrupo = data[0];
+          this.nombreGrupo = data[0].nombre;
+          this.descripcionGrupo = data[0].descripcion;
+          this.genero1Grupo = data[0].genero1;
+          this.genero2Grupo = data[0].genero2;
+          this.ciudadGrupo = data[0].ciudad;
+          this.precioGrupo = data[0].precio;
+          this.fotoGrupo = data[0].foto;
+          this.videoGrupo = data[0].video.replace("watch?v=", "embed/");
+          this.paginaGrupo = data[0].pagina;
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
     getAll() {
       var url = "http://localhost:3000/grupos/";
       axios
@@ -127,24 +241,52 @@ export default {
         });
     },
     comprobarBusqueda() {
-      if ((this.selectedGenero != "")&&(this.selectedCiudad == "")&&(this.selectedPrecio == "")) {
-        this.getPorGenero()
-      } else if ((this.selectedCiudad != "")&&(this.selectedGenero == "")&&(this.selectedPrecio == "")) {
-        this.getPorCiudad()
-      } else if ((this.selectedPrecio != "")&&(this.selectedGenero == "")&&(this.selectedCiudad == "")) {
-        this.getPorPrecio()
-      } else if ((this.selectedGenero != "")&&(this.selectedCiudad != "")&&(this.selectedPrecio == "")) {
-        this.getPorGeneroYCiudad()
-      } else if ((this.selectedGenero != "")&&(this.selectedPrecio != "")&&(this.selectedCiudad == "")) {
-        this.getPorGeneroYPrecio()
-      } else if ((this.selectedCiudad != "")&&(this.selectedPrecio != "")&&(this.selectedGenero == "")) {
-        this.getPorCiudadYPrecio()
-      } else if ((this.selectedCiudad != "")&&(this.selectedPrecio != "")&&(this.selectedGenero != "")) {
-        this.getPorCiudadYPrecioYGenero()
+      if (
+        this.selectedGenero != "" &&
+        this.selectedCiudad == "" &&
+        this.selectedPrecio == ""
+      ) {
+        this.getPorGenero();
+      } else if (
+        this.selectedCiudad != "" &&
+        this.selectedGenero == "" &&
+        this.selectedPrecio == ""
+      ) {
+        this.getPorCiudad();
+      } else if (
+        this.selectedPrecio != "" &&
+        this.selectedGenero == "" &&
+        this.selectedCiudad == ""
+      ) {
+        this.getPorPrecio();
+      } else if (
+        this.selectedGenero != "" &&
+        this.selectedCiudad != "" &&
+        this.selectedPrecio == ""
+      ) {
+        this.getPorGeneroYCiudad();
+      } else if (
+        this.selectedGenero != "" &&
+        this.selectedPrecio != "" &&
+        this.selectedCiudad == ""
+      ) {
+        this.getPorGeneroYPrecio();
+      } else if (
+        this.selectedCiudad != "" &&
+        this.selectedPrecio != "" &&
+        this.selectedGenero == ""
+      ) {
+        this.getPorCiudadYPrecio();
+      } else if (
+        this.selectedCiudad != "" &&
+        this.selectedPrecio != "" &&
+        this.selectedGenero != ""
+      ) {
+        this.getPorCiudadYPrecioYGenero();
       }
-      this.selectedCiudad = ""
-      this.selectedGenero = ""
-      this.selectedPrecio = ""
+      this.selectedCiudad = "";
+      this.selectedGenero = "";
+      this.selectedPrecio = "";
     },
     getPorGenero() {
       var url = `http://localhost:3000/grupos/busqueda/genero/${this.selectedGenero}`;
