@@ -50,10 +50,10 @@
             </b-col>
             <b-col sm="auto">
               Precio:
-              <b-form-input min="1000" type="number" placeholder="$" v-model="selectedPrecio"></b-form-input>
+              <b-form-input min="5000" step="5000" type="number" placeholder="$" v-model="selectedPrecio"></b-form-input>
             </b-col>
             <b-col sm="auto">
-              <b-button @click="comprobarBusqueda" >Buscar</b-button>
+              <b-button @click="comprobarBusqueda" variant="info">Buscar</b-button>
             </b-col>
           </b-nav-form>
         </b-navbar-nav>

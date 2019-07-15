@@ -1,9 +1,8 @@
 <template>
   <div class="inscripcion">
-    <div class="mt-2 bg-light">
-      <b-card header="Solicitud de inscripción"
-      title="Ingrese sus datos">
-        <b-form @submit="onSubmit">
+    <div class="mt-2">
+      <b-card header="Solicitud de inscripción" title="Ingrese sus datos">
+        <b-form>
           <b-form-group id="input-group-1" label="Correo electrónico:" label-for="input-1">
             <b-form-input
               id="input-1"
@@ -22,9 +21,19 @@
             <b-form-input id="input-3" v-model="url" required placeholder="Ingrese URL"></b-form-input>
           </b-form-group>
 
-          <b-button type="submit" variant="primary">Enviar solicitud</b-button>
+          <b-button @click="sendEmail" variant="info">Enviar solicitud</b-button>
         </b-form>
       </b-card>
+      <b-alert
+        class="mt-5"
+        :show="dismissCountDown2"
+        dismissible
+        variant="info"
+        @dismissed="dismissCountDown2=0"
+        @dismiss-count-down="countDownChanged2"
+      >Solicitud enviada!
+      Pronto recibirá un correo con información sobre nosotros.</b-alert>
+      <br />
     </div>
   </div>
 </template>
@@ -38,19 +47,21 @@ export default {
     return {
       email: "",
       name: "",
-      url: ""
+      url: "",
+      dismissSecs: 5,
+      dismissCountDown: 0,
+      dismissCountDown2: 0
     };
   },
   methods: {
-    onSubmit() {
-      this.sendEmail();
-    },
     limpiarCampos() {
       this.email = "";
       this.name = "";
       this.url = "";
     },
     sendEmail() {
+      this.showAlert2();
+      this.limpiarCampos();
       var url = "http://localhost:3000/sendemail/";
       var data = {
         subject: "Notificación de inscripción",
@@ -65,7 +76,14 @@ export default {
         .catch(error => {
           console.log(error);
         })
-        .then(() => {});
+        .then(() => {    
+        });
+    },
+    countDownChanged2(dismissCountDown2) {
+      this.dismissCountDown2 = dismissCountDown2;
+    },
+    showAlert2() {
+      this.dismissCountDown2 = this.dismissSecs;
     }
   }
 };

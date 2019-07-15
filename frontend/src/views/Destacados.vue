@@ -4,15 +4,12 @@
       <b-jumbotron
         bg-variant="dark"
         text-variant="light"
-        border-variant="success"
+        border-variant="info"
         header="Grupos Destacados"
         lead="Los grupos que más han recibido visitas o peticiones!"
       ></b-jumbotron>
 
-      <b-card header="Top 10"
-      class="text-center">
-        
-      </b-card>
+      <b-card header="Top 10" class="text-center"></b-card>
     </div>
   </div>
 </template>
