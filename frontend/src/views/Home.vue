@@ -39,21 +39,22 @@
         </b-navbar-brand>
 
         <b-navbar-nav>
-          <b-nav-form>
-            <b-row>
-              <b-col md="3" class="text-light">
-                Ciudad:
-                <b-form-select v-model="selectedCiudad" :options="ciudades"></b-form-select>
-              </b-col>
-              <b-col md="3" class="text-light">
-                Género:
-                <b-form-select v-model="selectedGenero" :options="generos"></b-form-select>
-              </b-col>
-              <b-col md="3" class="text-light">
-                Precio:
-                <b-form-input type="number" v-model="selectedPrecio"></b-form-input>
-              </b-col>
-            </b-row>
+          <b-nav-form class="text-light">
+            <b-col sm="auto">
+              Ciudad:
+              <b-form-select v-model="selectedCiudad" :options="ciudades"></b-form-select>
+            </b-col>
+            <b-col sm="auto">
+              Género:
+              <b-form-select v-model="selectedGenero" :options="generos"></b-form-select>
+            </b-col>
+            <b-col sm="auto">
+              Precio:
+              <b-form-input min="1000" type="number" placeholder="$" v-model="selectedPrecio"></b-form-input>
+            </b-col>
+            <b-col sm="auto">
+              <b-button @click="comprobarBusqueda" >Buscar</b-button>
+            </b-col>
           </b-nav-form>
         </b-navbar-nav>
       </b-navbar>
@@ -112,6 +113,131 @@ export default {
   methods: {
     getAll() {
       var url = "http://localhost:3000/grupos/";
+      axios
+        .get(url)
+        .then(response => {
+          var data = response.data;
+          this.allGrupos = [];
+          data.forEach(element => {
+            this.allGrupos.push(element);
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    comprobarBusqueda() {
+      if ((this.selectedGenero != "")&&(this.selectedCiudad == "")&&(this.selectedPrecio == "")) {
+        this.getPorGenero()
+      } else if ((this.selectedCiudad != "")&&(this.selectedGenero == "")&&(this.selectedPrecio == "")) {
+        this.getPorCiudad()
+      } else if ((this.selectedPrecio != "")&&(this.selectedGenero == "")&&(this.selectedCiudad == "")) {
+        this.getPorPrecio()
+      } else if ((this.selectedGenero != "")&&(this.selectedCiudad != "")&&(this.selectedPrecio == "")) {
+        this.getPorGeneroYCiudad()
+      } else if ((this.selectedGenero != "")&&(this.selectedPrecio != "")&&(this.selectedCiudad == "")) {
+        this.getPorGeneroYPrecio()
+      } else if ((this.selectedCiudad != "")&&(this.selectedPrecio != "")&&(this.selectedGenero == "")) {
+        this.getPorCiudadYPrecio()
+      } else if ((this.selectedCiudad != "")&&(this.selectedPrecio != "")&&(this.selectedGenero != "")) {
+        this.getPorCiudadYPrecioYGenero()
+      }
+      this.selectedCiudad = ""
+      this.selectedGenero = ""
+      this.selectedPrecio = ""
+    },
+    getPorGenero() {
+      var url = `http://localhost:3000/grupos/busqueda/genero/${this.selectedGenero}`;
+      axios
+        .get(url)
+        .then(response => {
+          var data = response.data;
+          this.allGrupos = [];
+          data.forEach(element => {
+            this.allGrupos.push(element);
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    getPorCiudad() {
+      var url = `http://localhost:3000/grupos/busqueda/ciudad/${this.selectedCiudad}`;
+      axios
+        .get(url)
+        .then(response => {
+          var data = response.data;
+          this.allGrupos = [];
+          data.forEach(element => {
+            this.allGrupos.push(element);
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    getPorPrecio() {
+      var url = `http://localhost:3000/grupos/busqueda/precio/${this.selectedPrecio}`;
+      axios
+        .get(url)
+        .then(response => {
+          var data = response.data;
+          this.allGrupos = [];
+          data.forEach(element => {
+            this.allGrupos.push(element);
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    getPorGeneroYCiudad() {
+      var url = `http://localhost:3000/grupos/busqueda/g-c/${this.selectedGenero}/${this.selectedCiudad}`;
+      axios
+        .get(url)
+        .then(response => {
+          var data = response.data;
+          this.allGrupos = [];
+          data.forEach(element => {
+            this.allGrupos.push(element);
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    getPorGeneroYPrecio() {
+      var url = `http://localhost:3000/grupos/busqueda/g-p/${this.selectedGenero}/${this.selectedPrecio}`;
+      axios
+        .get(url)
+        .then(response => {
+          var data = response.data;
+          this.allGrupos = [];
+          data.forEach(element => {
+            this.allGrupos.push(element);
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    getPorCiudadYPrecio() {
+      var url = `http://localhost:3000/grupos/busqueda/c-p/${this.selectedCiudad}/${this.selectedPrecio}`;
+      axios
+        .get(url)
+        .then(response => {
+          var data = response.data;
+          this.allGrupos = [];
+          data.forEach(element => {
+            this.allGrupos.push(element);
+          });
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
+    getPorCiudadYPrecioYGenero() {
+      var url = `http://localhost:3000/grupos/busqueda/c-p-g/${this.selectedCiudad}/${this.selectedPrecio}/${this.selectedGenero}`;
       axios
         .get(url)
         .then(response => {

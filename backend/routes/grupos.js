@@ -41,7 +41,7 @@ app.get('/grupos/:id', function (req, res) {
 })
 
 // Obtener grupos por genero
-app.get('/grupos/genero/:genero', function (req, res) {
+app.get('/grupos/busqueda/genero/:genero', function (req, res) {
     controller.getPorGenero(req.params.genero).then(response => {
         res.status(200).send(response)
     }).catch(error => {
@@ -50,7 +50,7 @@ app.get('/grupos/genero/:genero', function (req, res) {
 })
 
 // Obtener grupos por ciudad
-app.get('/grupos/ciudad/:ciudad', function (req, res) {
+app.get('/grupos/busqueda/ciudad/:ciudad', function (req, res) {
     controller.getPorCiudad(req.params.ciudad).then(response => {
         res.status(200).send(response)
     }).catch(error => {
@@ -59,8 +59,44 @@ app.get('/grupos/ciudad/:ciudad', function (req, res) {
 })
 
 // Obtener grupos por precio
-app.get('/grupos/precio/:precio', function (req, res) {
+app.get('/grupos/busqueda/precio/:precio', function (req, res) {
     controller.getPorPrecio(req.params.precio).then(response => {
+        res.status(200).send(response)
+    }).catch(error => {
+        console.log(error);
+    })
+})
+
+// Obtener grupos por genero y ciudad
+app.get('/grupos/busqueda/g-c/:genero/:ciudad', function (req, res) {
+    controller.getPorGeneroYCiudad(req.params.genero, req.params.ciudad).then(response => {
+        res.status(200).send(response)
+    }).catch(error => {
+        console.log(error);
+    })
+})
+
+// Obtener grupos por genero y precio
+app.get('/grupos/busqueda/g-p/:genero/:precio', function (req, res) {
+    controller.getPorGeneroYPrecio(req.params.genero, req.params.precio).then(response => {
+        res.status(200).send(response)
+    }).catch(error => {
+        console.log(error);
+    })
+})
+
+// Obtener grupos por ciudad y precio
+app.get('/grupos/busqueda/c-p/:ciudad/:precio', function (req, res) {
+    controller.getPorCiudadYPrecio(req.params.ciudad, req.params.precio).then(response => {
+        res.status(200).send(response)
+    }).catch(error => {
+        console.log(error);
+    })
+})
+
+// Obtener grupos por ciudad, precio y genero
+app.get('/grupos/busqueda/c-p-g/:ciudad/:precio/:genero', function (req, res) {
+    controller.getPorCiudadYPrecioYGenero(req.params.ciudad, req.params.precio, req.params.genero).then(response => {
         res.status(200).send(response)
     }).catch(error => {
         console.log(error);

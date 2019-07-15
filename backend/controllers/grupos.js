@@ -21,7 +21,6 @@ class Grupo {
         return grupos
     }
 
-
     async getOne(id) {
         let grupo = await service.getOne(id)
         return grupo
@@ -48,5 +47,21 @@ class Grupo {
 
     async delete(id) {
         return await service.delete(id)
+    }
+
+    async getPorGeneroYCiudad(genero, ciudad) {
+        return await service.getPorGeneroYCiudad(genero, ciudad)
+    }
+
+    async getPorGeneroYPrecio(genero, precio) {
+        return await service.getPorGeneroYPrecio(genero, precio)
+    }
+
+    async getPorCiudadYPrecio(ciudad, precio) {
+        return await service.getPorCiudadYPrecio(ciudad, precio)
+    }
+
+    async getPorCiudadYPrecioYGenero(ciudad, precio, genero) {
+        return await service.getPorCiudadYPrecioYGenero(ciudad, precio, genero)
     }
 }

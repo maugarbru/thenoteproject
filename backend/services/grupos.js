@@ -33,19 +33,19 @@ class Grupo {
     }
 
     async getPorGenero(genero) {
-        let sql = `SELECT * FROM public.grupos WHERE genero1=${genero} OR genero2=${genero}`;
+        let sql = `SELECT id, nombre, foto FROM public.grupos WHERE genero1='${genero}' OR genero2='${genero}'`;
         let response = await pg.executeRows(sql)
         return response
     }
 
     async getPorCiudad(ciudad) {
-        let sql = `SELECT * FROM public.grupos WHERE ciudad=${ciudad}`;
+        let sql = `SELECT id, nombre, foto FROM public.grupos WHERE ciudad='${ciudad}'`;
         let response = await pg.executeRows(sql)
         return response
     }
 
     async getPorPrecio(precio) {
-        let sql = `SELECT * FROM public.grupos WHERE precio<=${precio}`;
+        let sql = `SELECT id, nombre, foto FROM public.grupos WHERE precio<=${precio}`;
         let response = await pg.executeRows(sql)
         return response
     }
@@ -60,6 +60,30 @@ class Grupo {
     async delete(id) {
         let sql = `DELETE FROM public.grupos WHERE id='${id}'`;
         let response = await pg.execute(sql)
+        return response
+    }
+
+    async getPorGeneroYCiudad(genero, ciudad) {
+        let sql = `SELECT id, nombre, foto FROM public.grupos WHERE (genero1='${genero}' OR genero2='${genero}') AND ciudad='${ciudad}'`;
+        let response = await pg.executeRows(sql)
+        return response
+    }
+
+    async getPorGeneroYPrecio(genero, precio) {
+        let sql = `SELECT id, nombre, foto FROM public.grupos WHERE (genero1='${genero}' OR genero2='${genero}') AND precio <= ${precio}`;
+        let response = await pg.executeRows(sql)
+        return response
+    }
+
+    async getPorCiudadYPrecio(ciudad, precio) {
+        let sql = `SELECT id, nombre, foto FROM public.grupos WHERE ciudad='${ciudad}' AND precio <= ${precio}`;
+        let response = await pg.executeRows(sql)
+        return response
+    }
+
+    async getPorCiudadYPrecioYGenero(ciudad, precio, genero) {
+        let sql = `SELECT id, nombre, foto FROM public.grupos WHERE ciudad='${ciudad}' AND precio <= ${precio} AND (genero1='${genero}' OR genero2='${genero}')`;
+        let response = await pg.executeRows(sql)
         return response
     }
 }
