@@ -39,7 +39,7 @@
         </b-navbar-brand>
 
         <b-navbar-nav>
-          <b-nav-form class="text-light">
+          <b-nav-form class="text-light" @submit="onSubmit" @reset="onReset">
             <b-col sm="auto">
               Ciudad:
               <b-form-select v-model="selectedCiudad" :options="ciudades"></b-form-select>
@@ -54,33 +54,47 @@
                 min="5000"
                 step="5000"
                 type="number"
-                placeholder="$"
+                placeholder="(Máximo)"
                 v-model="selectedPrecio"
               ></b-form-input>
             </b-col>
             <b-col sm="auto">
-              <b-button @click="comprobarBusqueda" variant="info">Buscar</b-button>
+              <b-button type="submit" variant="info">Buscar</b-button>
+              <b-button type="reset" variant="secondary">Reiniciar búsqueda</b-button>
             </b-col>
           </b-nav-form>
         </b-navbar-nav>
       </b-navbar>
 
-      <b-container class="bg-secondary">
+      <b-container class="bg-secondary" id="grid">
         <b-row>
-          <b-col v-for="grupo in allGrupos" v-bind:key="grupo.id" class="col-sm mt-2">
-            <b-card img-top style="max-width: 20rem;" class="mb-2 text-center bg-dark">
-              <b-button
-                @click="getGrupo(grupo.id)"
-                variant="info"
-                v-b-modal.modal-center
-              >{{ grupo.nombre }}</b-button>
-              <b-img thumbnail fluid :src="grupo.foto" :alt="grupo.nombre"></b-img>
+          <b-col v-for="grupo in allGrupos" v-bind:key="grupo.id" sm="3" class="mt-2">
+            <b-card class="mb-2 text-center bg-dark">
+              <b-button @click="getGrupo(grupo.id)" variant="info" v-b-modal.modal-center>
+                <h5>
+                  <strong>{{ grupo.nombre }}</strong>
+                </h5>
+                <b-img thumbnail fluid :src="grupo.foto" :alt="grupo.nombre"></b-img>
+              </b-button>
             </b-card>
           </b-col>
         </b-row>
       </b-container>
 
-      <div>
+      <b-alert
+        :show="dismissCountDown"
+        dismissible
+        fade
+        variant="danger"
+        @dismissed="onDismiss"
+        @dismiss-count-down="countDownChanged"
+      >
+        No hay grupos con ese criterio de búsqueda, intente con otros parámetros.
+        Reiniciando búsqueda en {{ dismissCountDown }}
+        <b-spinner variant="danger" small label="Spinning"></b-spinner>
+      </b-alert>
+
+      <div id="modals">
         <b-modal
           id="modal-center"
           text-center
@@ -170,6 +184,9 @@ export default {
       selectedCiudad: "",
       selectedGenero: "",
       selectedPrecio: "",
+      dismissSecs: 5,
+      dismissCountDown: 0,
+      dismissCountDown2: 0,
 
       nombreGrupo: "",
       descripcionGrupo: "",
@@ -204,6 +221,27 @@ export default {
     this.getAll();
   },
   methods: {
+    onSubmit(evt) {
+      evt.preventDefault();
+      this.comprobarBusqueda();
+    },
+    onReset(evt) {
+      evt.preventDefault();
+      this.selectedCiudad = "";
+      this.selectedGenero = "";
+      this.selectedPrecio = "";
+      this.getAll();
+    },
+    onDismiss() {
+      this.dismissCountDown = 0;
+      this.getAll();
+    },
+    countDownChanged(dismissCountDown) {
+      this.dismissCountDown = dismissCountDown;
+    },
+    showAlert() {
+      this.dismissCountDown = this.dismissSecs;
+    },
     getGrupo(id) {
       var url = `http://localhost:3000/grupos/${id}`;
       axios
@@ -298,6 +336,9 @@ export default {
           data.forEach(element => {
             this.allGrupos.push(element);
           });
+          if (this.allGrupos.length == 0) {
+            this.showAlert();
+          }
         })
         .catch(error => {
           console.log(error);
@@ -313,6 +354,9 @@ export default {
           data.forEach(element => {
             this.allGrupos.push(element);
           });
+          if (this.allGrupos.length == 0) {
+            this.showAlert();
+          }
         })
         .catch(error => {
           console.log(error);
@@ -328,6 +372,9 @@ export default {
           data.forEach(element => {
             this.allGrupos.push(element);
           });
+          if (this.allGrupos.length == 0) {
+            this.showAlert();
+          }
         })
         .catch(error => {
           console.log(error);
@@ -343,6 +390,9 @@ export default {
           data.forEach(element => {
             this.allGrupos.push(element);
           });
+          if (this.allGrupos.length == 0) {
+            this.showAlert();
+          }
         })
         .catch(error => {
           console.log(error);
@@ -358,6 +408,9 @@ export default {
           data.forEach(element => {
             this.allGrupos.push(element);
           });
+          if (this.allGrupos.length == 0) {
+            this.showAlert();
+          }
         })
         .catch(error => {
           console.log(error);
@@ -373,6 +426,9 @@ export default {
           data.forEach(element => {
             this.allGrupos.push(element);
           });
+          if (this.allGrupos.length == 0) {
+            this.showAlert();
+          }
         })
         .catch(error => {
           console.log(error);
@@ -388,6 +444,9 @@ export default {
           data.forEach(element => {
             this.allGrupos.push(element);
           });
+          if (this.allGrupos.length == 0) {
+            this.showAlert();
+          }
         })
         .catch(error => {
           console.log(error);

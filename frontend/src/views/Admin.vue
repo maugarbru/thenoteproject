@@ -69,6 +69,7 @@
     <b-alert
       :show="dismissCountDown"
       dismissible
+      fade
       variant="danger"
       @dismissed="dismissCountDown=0"
       @dismiss-count-down="countDownChanged"
@@ -76,6 +77,7 @@
     <b-alert
       :show="dismissCountDown2"
       dismissible
+      fade
       variant="success"
       @dismissed="dismissCountDown2=0"
       @dismiss-count-down="countDownChanged2"
