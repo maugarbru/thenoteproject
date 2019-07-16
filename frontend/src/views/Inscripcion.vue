@@ -1,7 +1,13 @@
 <template>
   <div class="inscripcion">
     <div class="mt-2">
-      <b-card header="Solicitud de inscripción" title="Ingrese sus datos">
+      <b-card
+        header="Solicitud de inscripción"
+        title="Ingrese sus datos"
+        border-variant="dark"
+        header-bg-variant="info"
+        header-text-variant="light"
+      >
         <b-form>
           <b-form-group id="input-group-1" label="Correo electrónico:" label-for="input-1">
             <b-form-input
@@ -31,8 +37,10 @@
         variant="info"
         @dismissed="dismissCountDown2=0"
         @dismiss-count-down="countDownChanged2"
-      >Solicitud enviada!
-      Pronto recibirá un correo con información sobre nosotros.</b-alert>
+      >
+        Solicitud enviada!
+        Pronto recibirá un correo con información sobre nosotros.
+      </b-alert>
       <br />
     </div>
   </div>
@@ -61,7 +69,6 @@ export default {
     },
     sendEmail() {
       this.showAlert2();
-      this.limpiarCampos();
       var url = "http://localhost:3000/sendemail/";
       var data = {
         subject: "Notificación de inscripción",
@@ -76,7 +83,8 @@ export default {
         .catch(error => {
           console.log(error);
         })
-        .then(() => {    
+        .then(() => {
+          this.limpiarCampos();
         });
     },
     countDownChanged2(dismissCountDown2) {
