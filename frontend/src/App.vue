@@ -16,6 +16,7 @@
             <b-nav-item class="text-center" :to="{name: 'home'}" exact>Inicio</b-nav-item>
             <b-nav-item class="text-center" :to="{name: 'destacados'}">Destacados</b-nav-item>
             <b-nav-item class="text-center" :to="{name: 'inscripcion'}">[Inscripción de grupos]</b-nav-item>
+            <b-nav-item class="text-center" :to="{name: 'about'}">Acerca</b-nav-item>
           </b-navbar-nav>
         </b-collapse>
       </b-container>
