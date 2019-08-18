@@ -1,12 +1,12 @@
 <template>
   <div id="app">
-    <b-navbar toggleable="lg" type="light" variant="info">
+    <b-navbar toggleable="lg" type="light" variant="info" sticky>
       <b-container>
         <b-navbar-brand :to="{name: 'home'}">
           <img src="./assets/logo.png" width height="30" class="d-inline-block align-top" alt />
         </b-navbar-brand>
         <b-navbar-brand :to="{name: 'home'}">
-          <strong>MiParranda.com</strong>
+          <strong>LaNota.com</strong>
         </b-navbar-brand>
 
         <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>

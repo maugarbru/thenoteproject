@@ -1,36 +1,34 @@
 <template>
   <div class="home">
-    <div class="mt-2">
-      <b-carousel
-        id="carousel-1"
-        :interval="4000"
-        fade
-        indicators
-        controls
-        background="#ababab"
+    <b-carousel
+      id="carousel-1"
+      :interval="4000"
+      fade
+      indicators
+      controls
+      background="#ababab"
+      img-width="1024"
+      img-height="480"
+      style="text-shadow: 1px 1px 2px #333;"
+    >
+      <b-carousel-slide
         img-width="1024"
         img-height="480"
-        style="text-shadow: 1px 1px 2px #333;"
-      >
-        <b-carousel-slide
-          img-width="1024"
-          img-height="480"
-          img-src="https://cdn.pixabay.com/photo/2015/05/15/14/50/concert-768722_960_720.jpg"
-        ></b-carousel-slide>
+        img-src="https://cdn.pixabay.com/photo/2015/05/15/14/50/concert-768722_960_720.jpg"
+      ></b-carousel-slide>
 
-        <b-carousel-slide
-          img-src="https://cdn.pixabay.com/photo/2015/03/26/10/22/band-691224_960_720.jpg"
-        ></b-carousel-slide>
+      <b-carousel-slide
+        img-src="https://cdn.pixabay.com/photo/2015/03/26/10/22/band-691224_960_720.jpg"
+      ></b-carousel-slide>
 
-        <b-carousel-slide
-          img-src="https://cdn.pixabay.com/photo/2015/07/30/17/24/audience-868074_960_720.jpg"
-        ></b-carousel-slide>
+      <b-carousel-slide
+        img-src="https://cdn.pixabay.com/photo/2015/07/30/17/24/audience-868074_960_720.jpg"
+      ></b-carousel-slide>
 
-        <b-carousel-slide
-          img-src="https://cdn.pixabay.com/photo/2018/06/30/09/29/music-3507317_960_720.jpg"
-        ></b-carousel-slide>
-      </b-carousel>
-    </div>
+      <b-carousel-slide
+        img-src="https://cdn.pixabay.com/photo/2018/06/30/09/29/music-3507317_960_720.jpg"
+      ></b-carousel-slide>
+    </b-carousel>
 
     <div class="mt-2">
       <b-navbar toggleable="lg" type="dark" variant="dark">
@@ -99,9 +97,9 @@
           id="modal-center"
           text-center
           centered
-          scrollable
+          tall
           size="lg"
-          title="MiParranda.com"
+          title="LaNota.com"
           header-bg-variant="info"
           header-text-variant="dark"
           body-bg-variant="light"
